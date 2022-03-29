@@ -4,7 +4,7 @@ import * as aws from "@pulumi/aws";
 
 export class AssumableRole extends pulumi.ComponentResource{
     constructor(name: string, args: AssumableRoleArgs, opts?: pulumi.ComponentResourceOptions) {
-        super("aws:assumableRole", name, opts);
+        super("awsIam:index:assumableRole", name, opts);
         const options = {parent:this}
         const {assumeRolePolicy} = args;
     }

@@ -1,6 +1,6 @@
 VERSION         := 0.0.1
 
-PACK            := pulumi-aws-iam
+PACK            := awsiam
 PROJECT         := github.com/pulumi/pulumi-${PACK}
 
 PROVIDER        := pulumi-resource-${PACK}

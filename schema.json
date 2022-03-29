@@ -1,7 +1,7 @@
 {
-    "name": "pulumi-aws-iam",
+    "name": "awsIam",
     "resources": {
-        "pulumi-aws-iam:index:AssumableRole": {
+        "awsIam:index:AssumableRole": {
             "isComponent": true,
             "inputProperties": {
                 "assumeRolePolicy": {
@@ -13,21 +13,65 @@
                 "assumeRolePolicy"
             ],
             "properties": {
-                // "arn": {
-                //     "type": "string",
-                //     "description": "The role ARN"
-                // },
-                // "id": {
-                //     "type": "string",
-                //     "description": "The role ID."
-                // }
             },
             "required": [
-                // "arn",
-                // "id"
+            ]
+        },
+        "awsIam:index:User": {
+            "isComponent": true,
+            "inputProperties": {
+                "createIamAccessKey": {
+                    "type": "boolean",
+                    "description": "Boolean to determine whether to create an IAM access key"
+                },
+                "createUserLoginProfile": {
+                    "type": "boolean",
+                    "description": "Boolean to determine whether to create an IAM user login profile"
+                },
+                "forceDestroy": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "pgpKey": {
+                    "type": "string",
+                    "description": ""
+                },
+                "passwordLength": {
+                    "type": "number",
+                    "description": ""
+                },
+                "passwordResetRequired": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "permissionsBoundary": {
+                    "type": "string",
+                    "description": ""
+                },
+                "path": {
+                    "type": "string",
+                    "description": ""
+                },
+                "sshKeyEncoding": {
+                    "type": "string",
+                    "description": ""
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": ""
+                },
+                "uploadIamUserSshKey": {
+                    "type": "boolean",
+                    "description": ""
+                }
+            },
+            "requiredInputs": [
+                "createIamAccessKey",
+                "createUserLoginProfile"
             ]
         }
     },
+        
     "language": {
         "csharp": {
             "packageReferences": {
@@ -40,6 +84,7 @@
             "importBasePath": "github.com/jkisk/pulumi-aws-iam/sdk/go/pulumi-aws-iam"
         },
         "nodejs": {
+            "packageName": "@jkisk/pulumi-aws-iam",
             "dependencies": {
                 "@pulumi/aws": "^5.0.0"
             },
@@ -48,6 +93,7 @@
             }
         },
         "python": {
+            "packageName": "jkisk_pulumi_aws_iam",
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
                 "pulumi-aws": ">=5.0.0,<6.0.0"
