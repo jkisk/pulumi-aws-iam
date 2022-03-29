@@ -1,30 +1,30 @@
 {
-    "name": "xyz",
+    "name": "pulumi-aws-iam",
     "resources": {
-        "xyz:index:StaticPage": {
+        "pulumi-aws-iam:index:AssumableRole": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "assumeRolePolicy": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "Policy that grants an entity permission to assume the role."
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "assumeRolePolicy"
             ],
             "properties": {
-                "bucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
-                    "description": "The bucket resource."
-                },
-                "websiteUrl": {
-                    "type": "string",
-                    "description": "The website URL."
-                }
+                // "arn": {
+                //     "type": "string",
+                //     "description": "The role ARN"
+                // },
+                // "id": {
+                //     "type": "string",
+                //     "description": "The role ID."
+                // }
             },
             "required": [
-                "bucket",
-                "websiteUrl"
+                // "arn",
+                // "id"
             ]
         }
     },
@@ -32,16 +32,16 @@
         "csharp": {
             "packageReferences": {
                 "Pulumi": "3.*",
-                "Pulumi.Aws": "4.*"
+                "Pulumi.Aws": "5.*"
             }
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz"
+            "importBasePath": "github.com/jkisk/pulumi-aws-iam/sdk/go/pulumi-aws-iam"
         },
         "nodejs": {
             "dependencies": {
-                "@pulumi/aws": "^4.0.0"
+                "@pulumi/aws": "^5.0.0"
             },
             "devDependencies": {
                 "typescript": "^3.7.0"
@@ -50,7 +50,7 @@
         "python": {
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
-                "pulumi-aws": ">=4.0.0,<5.0.0"
+                "pulumi-aws": ">=5.0.0,<6.0.0"
             }
         }
     }
