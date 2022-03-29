@@ -7,24 +7,18 @@
                 "assumeRolePolicy": {
                     "type": "string",
                     "description": "Policy that grants an entity permission to assume the role."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "The role description"
                 }
             },
             "requiredInputs": [
                 "assumeRolePolicy"
             ],
             "properties": {
-                // "arn": {
-                //     "type": "string",
-                //     "description": "The role ARN"
-                // },
-                // "id": {
-                //     "type": "string",
-                //     "description": "The role ID."
-                // }
             },
             "required": [
-                // "arn",
-                // "id"
             ]
         }
     },
