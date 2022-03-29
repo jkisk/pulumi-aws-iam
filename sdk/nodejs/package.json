@@ -1,11 +1,11 @@
 {
-    "name": "@pulumi/xyz",
+    "name": "@pulumi/pulumi-aws-iam",
     "version": "${VERSION}",
     "scripts": {
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/aws": "^4.0.0"
+        "@pulumi/aws": "^5.0.0"
     },
     "devDependencies": {
         "typescript": "^3.7.0"

@@ -7,33 +7,20 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Xyz
+namespace Pulumi.Pulumi-aws-iam
 {
-    [XyzResourceType("xyz:index:StaticPage")]
-    public partial class StaticPage : Pulumi.ComponentResource
+    [Pulumi-aws-iamResourceType("pulumi-aws-iam:index:AssumableRole")]
+    public partial class AssumableRole : Pulumi.ComponentResource
     {
         /// <summary>
-        /// The bucket resource.
-        /// </summary>
-        [Output("bucket")]
-        public Output<Pulumi.Aws.S3.Bucket> Bucket { get; private set; } = null!;
-
-        /// <summary>
-        /// The website URL.
-        /// </summary>
-        [Output("websiteUrl")]
-        public Output<string> WebsiteUrl { get; private set; } = null!;
-
-
-        /// <summary>
-        /// Create a StaticPage resource with the given unique name, arguments, and options.
+        /// Create a AssumableRole resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public StaticPage(string name, StaticPageArgs args, ComponentResourceOptions? options = null)
-            : base("xyz:index:StaticPage", name, args ?? new StaticPageArgs(), MakeResourceOptions(options, ""), remote: true)
+        public AssumableRole(string name, AssumableRoleArgs args, ComponentResourceOptions? options = null)
+            : base("pulumi-aws-iam:index:AssumableRole", name, args ?? new AssumableRoleArgs(), MakeResourceOptions(options, ""), remote: true)
         {
         }
 
@@ -50,15 +37,21 @@ namespace Pulumi.Xyz
         }
     }
 
-    public sealed class StaticPageArgs : Pulumi.ResourceArgs
+    public sealed class AssumableRoleArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The HTML content for index.html.
+        /// Policy that grants an entity permission to assume the role.
         /// </summary>
-        [Input("indexContent", required: true)]
-        public Input<string> IndexContent { get; set; } = null!;
+        [Input("assumeRolePolicy", required: true)]
+        public Input<string> AssumeRolePolicy { get; set; } = null!;
 
-        public StaticPageArgs()
+        /// <summary>
+        /// The role description
+        /// </summary>
+        [Input("description")]
+        public Input<string>? Description { get; set; }
+
+        public AssumableRoleArgs()
         {
         }
     }

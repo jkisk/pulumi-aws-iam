@@ -3,8 +3,8 @@
 # *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 # Export this package's modules as members:
+from .assumable_role import *
 from .provider import *
-from .static_page import *
 
 def _register_module():
     import pulumi
@@ -18,14 +18,14 @@ def _register_module():
             return Module._version
 
         def construct(self, name: str, typ: str, urn: str) -> pulumi.Resource:
-            if typ == "xyz:index:StaticPage":
-                return StaticPage(name, pulumi.ResourceOptions(urn=urn))
+            if typ == "pulumi-aws-iam:index:AssumableRole":
+                return AssumableRole(name, pulumi.ResourceOptions(urn=urn))
             else:
                 raise Exception(f"unknown resource type {typ}")
 
 
     _module_instance = Module()
-    pulumi.runtime.register_resource_module("xyz", "index", _module_instance)
+    pulumi.runtime.register_resource_module("pulumi-aws-iam", "index", _module_instance)
 
 
     class Package(pulumi.runtime.ResourcePackage):
@@ -35,11 +35,11 @@ def _register_module():
             return Package._version
 
         def construct_provider(self, name: str, typ: str, urn: str) -> pulumi.ProviderResource:
-            if typ != "pulumi:providers:xyz":
+            if typ != "pulumi:providers:pulumi-aws-iam":
                 raise Exception(f"unknown provider type {typ}")
             return Provider(name, pulumi.ResourceOptions(urn=urn))
 
 
-    pulumi.runtime.register_resource_package("xyz", Package())
+    pulumi.runtime.register_resource_package("pulumi-aws-iam", Package())
 
 _register_module()
