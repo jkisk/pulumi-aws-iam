@@ -23,6 +23,8 @@ export class Provider implements provider.Provider {
     async construct(name: string, type: string, inputs: pulumi.Inputs,
         options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
         switch (type) {
+            case "pulumi-aws-iam:index:IamUser":
+                return await constructIamUser(name, inputs, options);
             case "pulumi-aws-iam:index:AssumableRole":
                 return await constructAssumableRole(name, inputs, options);
             default:
