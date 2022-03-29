@@ -16,7 +16,10 @@ import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
 import { AssumableRoleArgs, AssumableRole } from "./assumableRole";
+<<<<<<< HEAD:provider/cmd/pulumi-resource-awsiam/provider.ts
 import { User, UserArgs} from "./user";
+=======
+>>>>>>> main:provider/cmd/pulumi-resource-pulumi-aws-iam/provider.ts
 
 export class Provider implements provider.Provider {
     constructor(readonly version: string, readonly schema: string) { }
@@ -24,10 +27,13 @@ export class Provider implements provider.Provider {
     async construct(name: string, type: string, inputs: pulumi.Inputs,
         options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
         switch (type) {
+<<<<<<< HEAD:provider/cmd/pulumi-resource-awsiam/provider.ts
             case "awsIam:index:User":
                 return await constructUser(name, inputs, options);
             case "awsIam:index:AssumableRole":
-
+=======
+            case "pulumi-aws-iam:index:AssumableRole":
+>>>>>>> main:provider/cmd/pulumi-resource-pulumi-aws-iam/provider.ts
                 return await constructAssumableRole(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
@@ -36,6 +42,7 @@ export class Provider implements provider.Provider {
 }
 
 async function constructAssumableRole(name: string, inputs: pulumi.Inputs,
+<<<<<<< HEAD:provider/cmd/pulumi-resource-awsiam/provider.ts
     options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
 
     // Create the component resource.
@@ -63,6 +70,18 @@ async function constructUser(name: string, inputs: pulumi.Inputs,
         state: {
             // name: role.arn,
             // path: role.id,
+=======
+    options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
+
+    // Create the component resource.
+    const role = new AssumableRole(name, inputs as AssumableRoleArgs, options);
+
+    // Return the component resource's URN and outputs as its state.
+    return {
+        urn: role.urn,
+        state: {
+            role: role.role,
+>>>>>>> main:provider/cmd/pulumi-resource-pulumi-aws-iam/provider.ts
         },
     };
 }
