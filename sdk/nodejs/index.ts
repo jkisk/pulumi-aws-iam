@@ -6,11 +6,13 @@ import * as utilities from "./utilities";
 
 // Export members:
 export * from "./assumableRole";
+export * from "./iamRoleForServiceAccount";
 export * from "./provider";
 export * from "./user";
 
 // Import resources to register:
 import { AssumableRole } from "./assumableRole";
+import { IamRoleForServiceAccount } from "./iamRoleForServiceAccount";
 import { User } from "./user";
 
 const _module = {
@@ -19,6 +21,8 @@ const _module = {
         switch (type) {
             case "awsIam:index:AssumableRole":
                 return new AssumableRole(name, <any>undefined, { urn })
+            case "awsIam:index:IamRoleForServiceAccount":
+                return new IamRoleForServiceAccount(name, <any>undefined, { urn })
             case "awsIam:index:User":
                 return new User(name, <any>undefined, { urn })
             default:

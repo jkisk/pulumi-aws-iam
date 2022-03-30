@@ -6,6 +6,7 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .assumable_role import *
+from .iam_role_for_service_account import *
 from .provider import *
 from .user import *
 _utilities.register(
@@ -17,6 +18,7 @@ _utilities.register(
   "fqn": "jkisk_pulumi_aws_iam",
   "classes": {
    "awsIam:index:AssumableRole": "AssumableRole",
+   "awsIam:index:IamRoleForServiceAccount": "IamRoleForServiceAccount",
    "awsIam:index:User": "User"
   }
  }
