@@ -13,16 +13,12 @@ __all__ = ['AssumableRoleArgs', 'AssumableRole']
 @pulumi.input_type
 class AssumableRoleArgs:
     def __init__(__self__, *,
-                 assume_role_policy: pulumi.Input[str],
-                 description: Optional[pulumi.Input[str]] = None):
+                 assume_role_policy: pulumi.Input[str]):
         """
         The set of arguments for constructing a AssumableRole resource.
         :param pulumi.Input[str] assume_role_policy: Policy that grants an entity permission to assume the role.
-        :param pulumi.Input[str] description: The role description
         """
         pulumi.set(__self__, "assume_role_policy", assume_role_policy)
-        if description is not None:
-            pulumi.set(__self__, "description", description)
 
     @property
     @pulumi.getter(name="assumeRolePolicy")
@@ -36,18 +32,6 @@ class AssumableRoleArgs:
     def assume_role_policy(self, value: pulumi.Input[str]):
         pulumi.set(self, "assume_role_policy", value)
 
-    @property
-    @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[str]]:
-        """
-        The role description
-        """
-        return pulumi.get(self, "description")
-
-    @description.setter
-    def description(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "description", value)
-
 
 class AssumableRole(pulumi.ComponentResource):
     @overload
@@ -55,14 +39,12 @@ class AssumableRole(pulumi.ComponentResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  assume_role_policy: Optional[pulumi.Input[str]] = None,
-                 description: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a AssumableRole resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] assume_role_policy: Policy that grants an entity permission to assume the role.
-        :param pulumi.Input[str] description: The role description
         """
         ...
     @overload
@@ -88,7 +70,6 @@ class AssumableRole(pulumi.ComponentResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  assume_role_policy: Optional[pulumi.Input[str]] = None,
-                 description: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
@@ -106,9 +87,8 @@ class AssumableRole(pulumi.ComponentResource):
             if assume_role_policy is None and not opts.urn:
                 raise TypeError("Missing required property 'assume_role_policy'")
             __props__.__dict__["assume_role_policy"] = assume_role_policy
-            __props__.__dict__["description"] = description
         super(AssumableRole, __self__).__init__(
-            'pulumi-aws-iam:index:AssumableRole',
+            'awsIam:index:AssumableRole',
             resource_name,
             __props__,
             opts,

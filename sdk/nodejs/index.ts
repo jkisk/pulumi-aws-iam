@@ -7,29 +7,33 @@ import * as utilities from "./utilities";
 // Export members:
 export * from "./assumableRole";
 export * from "./provider";
+export * from "./user";
 
 // Import resources to register:
 import { AssumableRole } from "./assumableRole";
+import { User } from "./user";
 
 const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "pulumi-aws-iam:index:AssumableRole":
+            case "awsIam:index:AssumableRole":
                 return new AssumableRole(name, <any>undefined, { urn })
+            case "awsIam:index:User":
+                return new User(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
-pulumi.runtime.registerResourceModule("pulumi-aws-iam", "index", _module)
+pulumi.runtime.registerResourceModule("awsIam", "index", _module)
 
 import { Provider } from "./provider";
 
-pulumi.runtime.registerResourcePackage("pulumi-aws-iam", {
+pulumi.runtime.registerResourcePackage("awsIam", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {
-        if (type !== "pulumi:providers:pulumi-aws-iam") {
+        if (type !== "pulumi:providers:awsIam") {
             throw new Error(`unknown provider type ${type}`);
         }
         return new Provider(name, <any>undefined, { urn });

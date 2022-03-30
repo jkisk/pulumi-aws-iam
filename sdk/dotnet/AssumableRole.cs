@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Pulumi-aws-iam
+namespace Pulumi.AwsIam
 {
-    [Pulumi-aws-iamResourceType("pulumi-aws-iam:index:AssumableRole")]
+    [AwsIamResourceType("awsIam:index:AssumableRole")]
     public partial class AssumableRole : Pulumi.ComponentResource
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace Pulumi.Pulumi-aws-iam
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public AssumableRole(string name, AssumableRoleArgs args, ComponentResourceOptions? options = null)
-            : base("pulumi-aws-iam:index:AssumableRole", name, args ?? new AssumableRoleArgs(), MakeResourceOptions(options, ""), remote: true)
+            : base("awsIam:index:AssumableRole", name, args ?? new AssumableRoleArgs(), MakeResourceOptions(options, ""), remote: true)
         {
         }
 
@@ -44,12 +44,6 @@ namespace Pulumi.Pulumi-aws-iam
         /// </summary>
         [Input("assumeRolePolicy", required: true)]
         public Input<string> AssumeRolePolicy { get; set; } = null!;
-
-        /// <summary>
-        /// The role description
-        /// </summary>
-        [Input("description")]
-        public Input<string>? Description { get; set; }
 
         public AssumableRoleArgs()
         {

@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Pulumi-aws-iam
+namespace Pulumi.AwsIam
 {
-    [Pulumi-aws-iamResourceType("pulumi:providers:pulumi-aws-iam")]
+    [AwsIamResourceType("pulumi:providers:awsIam")]
     public partial class Provider : Pulumi.ProviderResource
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace Pulumi.Pulumi-aws-iam
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("pulumi-aws-iam", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("awsIam", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 

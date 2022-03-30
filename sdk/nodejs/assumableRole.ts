@@ -6,7 +6,7 @@ import * as utilities from "./utilities";
 
 export class AssumableRole extends pulumi.ComponentResource {
     /** @internal */
-    public static readonly __pulumiType = 'pulumi-aws-iam:index:AssumableRole';
+    public static readonly __pulumiType = 'awsIam:index:AssumableRole';
 
     /**
      * Returns true if the given object is an instance of AssumableRole.  This is designed to work even
@@ -28,20 +28,17 @@ export class AssumableRole extends pulumi.ComponentResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args: AssumableRoleArgs, opts?: pulumi.ComponentResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.assumeRolePolicy === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'assumeRolePolicy'");
             }
-            inputs["assumeRolePolicy"] = args ? args.assumeRolePolicy : undefined;
-            inputs["description"] = args ? args.description : undefined;
+            resourceInputs["assumeRolePolicy"] = args ? args.assumeRolePolicy : undefined;
         } else {
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
-        super(AssumableRole.__pulumiType, name, inputs, opts, true /*remote*/);
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        super(AssumableRole.__pulumiType, name, resourceInputs, opts, true /*remote*/);
     }
 }
 
@@ -52,9 +49,5 @@ export interface AssumableRoleArgs {
     /**
      * Policy that grants an entity permission to assume the role.
      */
-    readonly assumeRolePolicy: pulumi.Input<string>;
-    /**
-     * The role description
-     */
-    readonly description?: pulumi.Input<string>;
+    assumeRolePolicy: pulumi.Input<string>;
 }

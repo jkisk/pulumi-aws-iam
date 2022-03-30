@@ -16,6 +16,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as provider from "@pulumi/pulumi/provider";
 
 import { AssumableRoleArgs, AssumableRole } from "./assumableRole";
+import { User, UserArgs} from "./user";
 
 export class Provider implements provider.Provider {
     constructor(readonly version: string, readonly schema: string) { }
@@ -23,7 +24,10 @@ export class Provider implements provider.Provider {
     async construct(name: string, type: string, inputs: pulumi.Inputs,
         options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
         switch (type) {
-            case "pulumi-aws-iam:index:AssumableRole":
+            case "awsIam:index:User":
+                return await constructUser(name, inputs, options);
+            case "awsIam:index:AssumableRole":
+
                 return await constructAssumableRole(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
@@ -41,7 +45,26 @@ async function constructAssumableRole(name: string, inputs: pulumi.Inputs,
     return {
         urn: role.urn,
         state: {
-            role: role.role,
+            // name: role.arn,
+            // path: role.id,
+        },
+    };
+}
+
+async function constructUser(name: string, inputs: pulumi.Inputs,
+    options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
+
+    // Create the component resource.
+    const user = new User(name, inputs as UserArgs, options);
+
+    // Return the component resource's URN and outputs as its state.
+    return {
+        urn: user.urn,
+        state: {
+            iamUser: user.iamUser,
+            accessKey: user.iamAccessKey,
+            loginProfile: user.iamUserLoginProfile,
+            sshKey: user.iamUserSshKey,
         },
     };
 }

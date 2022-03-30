@@ -3,27 +3,16 @@ import * as aws from "@pulumi/aws";
 
 
 export class AssumableRole extends pulumi.ComponentResource{
-    role: aws.iam.Role;
-
-    constructor(
-        name: string,
-        args: AssumableRoleArgs,
-        opts?: pulumi.ComponentResourceOptions) {
-        super("pulumi-aws-iam:assumableRole", name, opts);
-        
-
-        this.role = new aws.iam.Role(name, {
-            assumeRolePolicy: args.assumeRolePolicy
-        })
+    constructor(name: string, args: AssumableRoleArgs, opts?: pulumi.ComponentResourceOptions) {
+        super("awsIam:index:assumableRole", name, opts);
+        const options = {parent:this}
+        const {assumeRolePolicy} = args;
     }
 }
-
 
 export interface AssumableRoleArgs {
     // Policy that grants an entity permission to assume the role (required)
     assumeRolePolicy: pulumi.Input<string> | aws.iam.PolicyDocument,
-    // IAM Role description
-    description: pulumi.Input<string> | "",
     // Actions of STS
     trustedRoleActions: pulumi.Input<string> | "sts:AssumeRole",
     // ARNs of AWS entities who can assume these roles
@@ -68,6 +57,8 @@ export interface AssumableRoleArgs {
     attachReadOnlyPolicy: pulumi.Input<boolean> | false,
     // Whether policies should be detached from this role when destroying
     forceDetachPolicies: pulumi.Input<boolean> | false,
+    // IAM Role description
+    roleDescription: pulumi.Input<string> | "",
     // STS ExternalId condition values to use with a role (when MFA is not required)
     roleStsExternalId: pulumi.Input<Array<string>> | [],
 } 

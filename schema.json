@@ -1,16 +1,12 @@
 {
-    "name": "pulumi-aws-iam",
+    "name": "awsIam",
     "resources": {
-        "pulumi-aws-iam:index:AssumableRole": {
+        "awsIam:index:AssumableRole": {
             "isComponent": true,
             "inputProperties": {
                 "assumeRolePolicy": {
                     "type": "string",
                     "description": "Policy that grants an entity permission to assume the role."
-                },
-                "description": {
-                    "type": "string",
-                    "description": "The role description"
                 }
             },
             "requiredInputs": [
@@ -20,8 +16,83 @@
             },
             "required": [
             ]
+        },
+        "awsIam:index:User": {
+            "isComponent": true,
+            "inputProperties": {
+                "createIamAccessKey": {
+                    "type": "boolean",
+                    "description": "Boolean to determine whether to create an IAM access key"
+                },
+                "createUserLoginProfile": {
+                    "type": "boolean",
+                    "description": "Boolean to determine whether to create an IAM user login profile"
+                },
+                "forceDestroy": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "pgpKey": {
+                    "type": "string",
+                    "description": ""
+                },
+                "passwordLength": {
+                    "type": "number",
+                    "description": ""
+                },
+                "passwordResetRequired": {
+                    "type": "boolean",
+                    "description": ""
+                },
+                "permissionsBoundary": {
+                    "type": "string",
+                    "description": ""
+                },
+                "path": {
+                    "type": "string",
+                    "description": ""
+                },
+                "sshKeyEncoding": {
+                    "type": "string",
+                    "description": ""
+                },
+                "sshPublicKey": {
+                    "type": "string",
+                    "description": ""
+                },
+                "uploadIamUserSshKey": {
+                    "type": "boolean",
+                    "description": ""
+                }
+            },
+            "requiredInputs": [
+                "createIamAccessKey",
+                "createUserLoginProfile"
+            ],
+            "properties": {
+                "iamUser": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2Fuser:User",
+                    "description": "The IAM user"
+                },
+                "userLoginProfile": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2FuserLoginProfile:UserLoginProfile",
+                    "description": "The user login profile associated with the IAM user"
+                },
+                "accessKey": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2FaccessKey:AccessKey",
+                    "description": "The access key associated with the IAM user"
+                },
+                "sshKey": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2FsshKey:SshKey",
+                    "description": "The SSH key associated with the IAM user"
+                }
+            },
+            "required": [
+                "iamUser"
+            ]
         }
     },
+        
     "language": {
         "csharp": {
             "packageReferences": {
@@ -34,6 +105,7 @@
             "importBasePath": "github.com/jkisk/pulumi-aws-iam/sdk/go/pulumi-aws-iam"
         },
         "nodejs": {
+            "packageName": "@jkisk/pulumi-aws-iam",
             "dependencies": {
                 "@pulumi/aws": "^5.0.0"
             },
@@ -42,6 +114,7 @@
             }
         },
         "python": {
+            "packageName": "jkisk_pulumi_aws_iam",
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
                 "pulumi-aws": ">=5.0.0,<6.0.0"

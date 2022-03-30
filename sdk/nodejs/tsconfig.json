@@ -16,6 +16,7 @@
         "assumableRole.ts",
         "index.ts",
         "provider.ts",
+        "user.ts",
         "utilities.ts"
     ]
 }

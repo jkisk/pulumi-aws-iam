@@ -8,31 +8,37 @@ from setuptools.command.install import install
 from subprocess import check_call
 
 
+VERSION = "0.0.0"
+PLUGIN_VERSION = "0.0.0"
+
 class InstallPluginCommand(install):
     def run(self):
         install.run(self)
         try:
-            check_call(['pulumi', 'plugin', 'install', 'resource', 'pulumi-aws-iam', '${PLUGIN_VERSION}'])
+            check_call(['pulumi', 'plugin', 'install', 'resource', 'awsIam', PLUGIN_VERSION])
         except OSError as error:
             if error.errno == errno.ENOENT:
-                print("""
-                There was an error installing the pulumi-aws-iam resource provider plugin.
+                print(f"""
+                There was an error installing the awsIam resource provider plugin.
                 It looks like `pulumi` is not installed on your system.
                 Please visit https://pulumi.com/ to install the Pulumi CLI.
                 You may try manually installing the plugin by running
-                `pulumi plugin install resource pulumi-aws-iam ${PLUGIN_VERSION}`
+                `pulumi plugin install resource awsIam {PLUGIN_VERSION}`
                 """)
             else:
                 raise
 
 
 def readme():
-    with open('README.md', encoding='utf-8') as f:
-        return f.read()
+    try:
+        with open('README.md', encoding='utf-8') as f:
+            return f.read()
+    except FileNotFoundError:
+        return "awsIam Pulumi Package - Development Version"
 
 
-setup(name='pulumi_pulumi_aws_iam',
-      version='${VERSION}',
+setup(name='jkisk_pulumi_aws_iam',
+      version=VERSION,
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
@@ -40,8 +46,9 @@ setup(name='pulumi_pulumi_aws_iam',
       },
       packages=find_packages(),
       package_data={
-          'pulumi_pulumi_aws_iam': [
+          'jkisk_pulumi_aws_iam': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using Pulumi;
 
-namespace Pulumi.Pulumi-aws-iam
+namespace Pulumi.AwsIam
 {
     static class Utilities
     {
@@ -46,18 +46,19 @@ namespace Pulumi.Pulumi-aws-iam
 
         public static double? GetEnvDouble(params string[] names) => double.TryParse(GetEnv(names), out double v) ? (double?)v : null;
 
+        [Obsolete("Please use WithDefaults instead")]
         public static InvokeOptions WithVersion(this InvokeOptions? options)
         {
-            if (options?.Version != null)
-            {
-                return options;
-            }
-            return new InvokeOptions
-            {
-                Parent = options?.Parent,
-                Provider = options?.Provider,
-                Version = Version,
-            };
+            InvokeOptions dst = options ?? new InvokeOptions{};
+            dst.Version = options?.Version ?? Version;
+            return dst;
+        }
+
+        public static InvokeOptions WithDefaults(this InvokeOptions? src)
+        {
+            InvokeOptions dst = src ?? new InvokeOptions{};
+            dst.Version = src?.Version ?? Version;
+            return dst;
         }
 
         private readonly static string version;
@@ -66,7 +67,7 @@ namespace Pulumi.Pulumi-aws-iam
         static Utilities()
         {
             var assembly = typeof(Utilities).GetTypeInfo().Assembly;
-            using var stream = assembly.GetManifestResourceStream("Pulumi.Pulumi-aws-iam.version.txt");
+            using var stream = assembly.GetManifestResourceStream("Pulumi.AwsIam.version.txt");
             using var reader = new StreamReader(stream ?? throw new NotSupportedException("Missing embedded version.txt file"));
             version = reader.ReadToEnd().Trim();
             var parts = version.Split("\n");
@@ -78,9 +79,9 @@ namespace Pulumi.Pulumi-aws-iam
         }
     }
 
-    internal sealed class Pulumi-aws-iamResourceTypeAttribute : Pulumi.ResourceTypeAttribute
+    internal sealed class AwsIamResourceTypeAttribute : Pulumi.ResourceTypeAttribute
     {
-        public Pulumi-aws-iamResourceTypeAttribute(string type) : base(type, Utilities.Version)
+        public AwsIamResourceTypeAttribute(string type) : base(type, Utilities.Version)
         {
         }
     }
