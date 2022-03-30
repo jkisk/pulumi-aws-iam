@@ -7,6 +7,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+import pulumi_aws
 
 __all__ = ['UserArgs', 'User']
 
@@ -243,10 +244,46 @@ class User(pulumi.ComponentResource):
             __props__.__dict__["ssh_key_encoding"] = ssh_key_encoding
             __props__.__dict__["ssh_public_key"] = ssh_public_key
             __props__.__dict__["upload_iam_user_ssh_key"] = upload_iam_user_ssh_key
+            __props__.__dict__["access_key"] = None
+            __props__.__dict__["iam_user"] = None
+            __props__.__dict__["ssh_key"] = None
+            __props__.__dict__["user_login_profile"] = None
         super(User, __self__).__init__(
             'awsIam:index:User',
             resource_name,
             __props__,
             opts,
             remote=True)
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> pulumi.Output[Optional['pulumi_aws.iam.AccessKey']]:
+        """
+        The access key associated with the IAM user
+        """
+        return pulumi.get(self, "access_key")
+
+    @property
+    @pulumi.getter(name="iamUser")
+    def iam_user(self) -> pulumi.Output['pulumi_aws.iam.User']:
+        """
+        The IAM user
+        """
+        return pulumi.get(self, "iam_user")
+
+    @property
+    @pulumi.getter(name="sshKey")
+    def ssh_key(self) -> pulumi.Output[Optional['pulumi_aws.iam.SshKey']]:
+        """
+        The SSH key associated with the IAM user
+        """
+        return pulumi.get(self, "ssh_key")
+
+    @property
+    @pulumi.getter(name="userLoginProfile")
+    def user_login_profile(self) -> pulumi.Output[Optional['pulumi_aws.iam.UserLoginProfile']]:
+        """
+        The user login profile associated with the IAM user
+        """
+        return pulumi.get(self, "user_login_profile")
 

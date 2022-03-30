@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+import * as pulumiAws from "@pulumi/aws";
+
 export class User extends pulumi.ComponentResource {
     /** @internal */
     public static readonly __pulumiType = 'awsIam:index:User';
@@ -19,6 +21,22 @@ export class User extends pulumi.ComponentResource {
         return obj['__pulumiType'] === User.__pulumiType;
     }
 
+    /**
+     * The access key associated with the IAM user
+     */
+    public /*out*/ readonly accessKey!: pulumi.Output<pulumiAws.iam.AccessKey | undefined>;
+    /**
+     * The IAM user
+     */
+    public /*out*/ readonly iamUser!: pulumi.Output<pulumiAws.iam.User>;
+    /**
+     * The SSH key associated with the IAM user
+     */
+    public /*out*/ readonly sshKey!: pulumi.Output<pulumiAws.iam.SshKey | undefined>;
+    /**
+     * The user login profile associated with the IAM user
+     */
+    public /*out*/ readonly userLoginProfile!: pulumi.Output<pulumiAws.iam.UserLoginProfile | undefined>;
 
     /**
      * Create a User resource with the given unique name, arguments, and options.
@@ -48,7 +66,15 @@ export class User extends pulumi.ComponentResource {
             resourceInputs["sshKeyEncoding"] = args ? args.sshKeyEncoding : undefined;
             resourceInputs["sshPublicKey"] = args ? args.sshPublicKey : undefined;
             resourceInputs["uploadIamUserSshKey"] = args ? args.uploadIamUserSshKey : undefined;
+            resourceInputs["accessKey"] = undefined /*out*/;
+            resourceInputs["iamUser"] = undefined /*out*/;
+            resourceInputs["sshKey"] = undefined /*out*/;
+            resourceInputs["userLoginProfile"] = undefined /*out*/;
         } else {
+            resourceInputs["accessKey"] = undefined /*out*/;
+            resourceInputs["iamUser"] = undefined /*out*/;
+            resourceInputs["sshKey"] = undefined /*out*/;
+            resourceInputs["userLoginProfile"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(User.__pulumiType, name, resourceInputs, opts, true /*remote*/);

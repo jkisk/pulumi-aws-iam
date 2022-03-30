@@ -61,7 +61,7 @@ async function constructUser(name: string, inputs: pulumi.Inputs,
     return {
         urn: user.urn,
         state: {
-            user: user.iamUser,
+            iamUser: user.iamUser,
             accessKey: user.iamAccessKey,
             loginProfile: user.iamUserLoginProfile,
             sshKey: user.iamUserSshKey,

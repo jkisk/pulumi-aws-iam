@@ -8,11 +8,21 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/iam"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 type User struct {
 	pulumi.ResourceState
+
+	// The access key associated with the IAM user
+	AccessKey iam.AccessKeyOutput `pulumi:"accessKey"`
+	// The IAM user
+	IamUser iam.UserOutput `pulumi:"iamUser"`
+	// The SSH key associated with the IAM user
+	SshKey iam.SshKeyOutput `pulumi:"sshKey"`
+	// The user login profile associated with the IAM user
+	UserLoginProfile iam.UserLoginProfileOutput `pulumi:"userLoginProfile"`
 }
 
 // NewUser registers a new resource with the given unique name, arguments, and options.

@@ -13,6 +13,31 @@ namespace Pulumi.AwsIam
     public partial class User : Pulumi.ComponentResource
     {
         /// <summary>
+        /// The access key associated with the IAM user
+        /// </summary>
+        [Output("accessKey")]
+        public Output<Pulumi.Aws.Iam.AccessKey?> AccessKey { get; private set; } = null!;
+
+        /// <summary>
+        /// The IAM user
+        /// </summary>
+        [Output("iamUser")]
+        public Output<Pulumi.Aws.Iam.User> IamUser { get; private set; } = null!;
+
+        /// <summary>
+        /// The SSH key associated with the IAM user
+        /// </summary>
+        [Output("sshKey")]
+        public Output<Pulumi.Aws.Iam.SshKey?> SshKey { get; private set; } = null!;
+
+        /// <summary>
+        /// The user login profile associated with the IAM user
+        /// </summary>
+        [Output("userLoginProfile")]
+        public Output<Pulumi.Aws.Iam.UserLoginProfile?> UserLoginProfile { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a User resource with the given unique name, arguments, and options.
         /// </summary>
         ///
