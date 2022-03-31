@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+import * as pulumiAws from "@pulumi/aws";
+
 export class AssumableRole extends pulumi.ComponentResource {
     /** @internal */
     public static readonly __pulumiType = 'awsIam:index:AssumableRole';
@@ -20,9 +22,10 @@ export class AssumableRole extends pulumi.ComponentResource {
     }
 
     /**
-     * Amazon Resource Name (ARN) specifying the role.
+     * ARN of the IAM role.
      */
     public /*out*/ readonly arn!: pulumi.Output<string>;
+    public /*out*/ readonly attachedPolicies!: pulumi.Output<pulumiAws.iam.RolePolicyAttachment[]>;
     /**
      * Creation date of the IAM role.
      */
@@ -31,6 +34,10 @@ export class AssumableRole extends pulumi.ComponentResource {
      * The provider-assigned unique ID for this managed resource..
      */
     public /*out*/ readonly id!: pulumi.Output<string>;
+    /**
+     * The IAM role
+     */
+    public /*out*/ readonly role!: pulumi.Output<pulumiAws.iam.Role | undefined>;
     /**
      * Stable and unique string identifying the role.
      */
@@ -55,13 +62,17 @@ export class AssumableRole extends pulumi.ComponentResource {
             resourceInputs["attachPowerUserPolicy"] = args ? args.attachPowerUserPolicy : undefined;
             resourceInputs["attachReadOnlyPolicy"] = args ? args.attachReadOnlyPolicy : undefined;
             resourceInputs["arn"] = undefined /*out*/;
+            resourceInputs["attachedPolicies"] = undefined /*out*/;
             resourceInputs["createDate"] = undefined /*out*/;
             resourceInputs["id"] = undefined /*out*/;
+            resourceInputs["role"] = undefined /*out*/;
             resourceInputs["uniqueId"] = undefined /*out*/;
         } else {
             resourceInputs["arn"] = undefined /*out*/;
+            resourceInputs["attachedPolicies"] = undefined /*out*/;
             resourceInputs["createDate"] = undefined /*out*/;
             resourceInputs["id"] = undefined /*out*/;
+            resourceInputs["role"] = undefined /*out*/;
             resourceInputs["uniqueId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);

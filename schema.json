@@ -25,9 +25,13 @@
                 "assumeRolePolicy"
             ],
             "properties": {
+                "role": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2Frole:Role",
+                    "description": "The IAM role"
+                },
                 "arn": {
                     "type": "string",
-                    "description": "Amazon Resource Name (ARN) specifying the role."
+                    "description": "ARN of the IAM role."
                 },
                 "createDate": {
                     "type": "string",
@@ -40,13 +44,20 @@
                 "uniqueId": {
                     "type": "string",
                     "description": "Stable and unique string identifying the role."
+                },
+                "attachedPolicies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2FrolePolicyAttachment:RolePolicyAttachment"
+                    }
                 }
             },
             "required": [
                 "arn",
                 "createDate",
                 "id",
-                "uniqueId"
+                "uniqueId",
+                "attachedPolicies"
             ]
         },
         "awsIam:index:User": {

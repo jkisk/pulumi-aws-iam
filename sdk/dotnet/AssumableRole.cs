@@ -13,10 +13,13 @@ namespace Pulumi.AwsIam
     public partial class AssumableRole : Pulumi.ComponentResource
     {
         /// <summary>
-        /// Amazon Resource Name (ARN) specifying the role.
+        /// ARN of the IAM role.
         /// </summary>
         [Output("arn")]
         public Output<string> Arn { get; private set; } = null!;
+
+        [Output("attachedPolicies")]
+        public Output<ImmutableArray<Pulumi.Aws.Iam.RolePolicyAttachment>> AttachedPolicies { get; private set; } = null!;
 
         /// <summary>
         /// Creation date of the IAM role.
@@ -29,6 +32,12 @@ namespace Pulumi.AwsIam
         /// </summary>
         [Output("id")]
         public Output<string> Id { get; private set; } = null!;
+
+        /// <summary>
+        /// The IAM role
+        /// </summary>
+        [Output("role")]
+        public Output<Pulumi.Aws.Iam.Role?> Role { get; private set; } = null!;
 
         /// <summary>
         /// Stable and unique string identifying the role.
