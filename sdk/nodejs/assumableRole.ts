@@ -19,6 +19,22 @@ export class AssumableRole extends pulumi.ComponentResource {
         return obj['__pulumiType'] === AssumableRole.__pulumiType;
     }
 
+    /**
+     * Amazon Resource Name (ARN) specifying the role.
+     */
+    public /*out*/ readonly arn!: pulumi.Output<string>;
+    /**
+     * Creation date of the IAM role.
+     */
+    public /*out*/ readonly createDate!: pulumi.Output<string>;
+    /**
+     * The provider-assigned unique ID for this managed resource..
+     */
+    public /*out*/ readonly id!: pulumi.Output<string>;
+    /**
+     * Stable and unique string identifying the role.
+     */
+    public /*out*/ readonly uniqueId!: pulumi.Output<string>;
 
     /**
      * Create a AssumableRole resource with the given unique name, arguments, and options.
@@ -35,7 +51,18 @@ export class AssumableRole extends pulumi.ComponentResource {
                 throw new Error("Missing required property 'assumeRolePolicy'");
             }
             resourceInputs["assumeRolePolicy"] = args ? args.assumeRolePolicy : undefined;
+            resourceInputs["attachAdminPolicy"] = args ? args.attachAdminPolicy : undefined;
+            resourceInputs["attachPowerUserPolicy"] = args ? args.attachPowerUserPolicy : undefined;
+            resourceInputs["attachReadOnlyPolicy"] = args ? args.attachReadOnlyPolicy : undefined;
+            resourceInputs["arn"] = undefined /*out*/;
+            resourceInputs["createDate"] = undefined /*out*/;
+            resourceInputs["id"] = undefined /*out*/;
+            resourceInputs["uniqueId"] = undefined /*out*/;
         } else {
+            resourceInputs["arn"] = undefined /*out*/;
+            resourceInputs["createDate"] = undefined /*out*/;
+            resourceInputs["id"] = undefined /*out*/;
+            resourceInputs["uniqueId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(AssumableRole.__pulumiType, name, resourceInputs, opts, true /*remote*/);
@@ -50,4 +77,16 @@ export interface AssumableRoleArgs {
      * Policy that grants an entity permission to assume the role.
      */
     assumeRolePolicy: pulumi.Input<string>;
+    /**
+     * Whether to attach a predefined aws admin policy
+     */
+    attachAdminPolicy?: pulumi.Input<boolean>;
+    /**
+     * Whether to attach a predefined aws poweruser policy
+     */
+    attachPowerUserPolicy?: pulumi.Input<boolean>;
+    /**
+     * Whether to attach a predefined aws readonly policy
+     */
+    attachReadOnlyPolicy?: pulumi.Input<boolean>;
 }

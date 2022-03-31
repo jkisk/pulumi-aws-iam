@@ -13,6 +13,15 @@ import (
 
 type AssumableRole struct {
 	pulumi.ResourceState
+
+	// Amazon Resource Name (ARN) specifying the role.
+	Arn pulumi.StringOutput `pulumi:"arn"`
+	// Creation date of the IAM role.
+	CreateDate pulumi.StringOutput `pulumi:"createDate"`
+	// The provider-assigned unique ID for this managed resource..
+	Id pulumi.StringOutput `pulumi:"id"`
+	// Stable and unique string identifying the role.
+	UniqueId pulumi.StringOutput `pulumi:"uniqueId"`
 }
 
 // NewAssumableRole registers a new resource with the given unique name, arguments, and options.
@@ -36,12 +45,24 @@ func NewAssumableRole(ctx *pulumi.Context,
 type assumableRoleArgs struct {
 	// Policy that grants an entity permission to assume the role.
 	AssumeRolePolicy string `pulumi:"assumeRolePolicy"`
+	// Whether to attach a predefined aws admin policy
+	AttachAdminPolicy *bool `pulumi:"attachAdminPolicy"`
+	// Whether to attach a predefined aws poweruser policy
+	AttachPowerUserPolicy *bool `pulumi:"attachPowerUserPolicy"`
+	// Whether to attach a predefined aws readonly policy
+	AttachReadOnlyPolicy *bool `pulumi:"attachReadOnlyPolicy"`
 }
 
 // The set of arguments for constructing a AssumableRole resource.
 type AssumableRoleArgs struct {
 	// Policy that grants an entity permission to assume the role.
 	AssumeRolePolicy pulumi.StringInput
+	// Whether to attach a predefined aws admin policy
+	AttachAdminPolicy pulumi.BoolPtrInput
+	// Whether to attach a predefined aws poweruser policy
+	AttachPowerUserPolicy pulumi.BoolPtrInput
+	// Whether to attach a predefined aws readonly policy
+	AttachReadOnlyPolicy pulumi.BoolPtrInput
 }
 
 func (AssumableRoleArgs) ElementType() reflect.Type {
