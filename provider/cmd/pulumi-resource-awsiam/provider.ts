@@ -45,8 +45,10 @@ async function constructAssumableRole(name: string, inputs: pulumi.Inputs,
     return {
         urn: role.urn,
         state: {
-            // name: role.arn,
-            // path: role.id,
+            role: role.role,
+            policiesAttached: role.policies,
+            createDate: role.role.createDate,
+            uniqueId: role.role.uniqueId,
         },
     };
 }

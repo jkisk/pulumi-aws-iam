@@ -13,6 +13,31 @@ namespace Pulumi.AwsIam
     public partial class AssumableRole : Pulumi.ComponentResource
     {
         /// <summary>
+        /// Amazon Resource Name (ARN) specifying the role.
+        /// </summary>
+        [Output("arn")]
+        public Output<string> Arn { get; private set; } = null!;
+
+        /// <summary>
+        /// Creation date of the IAM role.
+        /// </summary>
+        [Output("createDate")]
+        public Output<string> CreateDate { get; private set; } = null!;
+
+        /// <summary>
+        /// The provider-assigned unique ID for this managed resource..
+        /// </summary>
+        [Output("id")]
+        public Output<string> Id { get; private set; } = null!;
+
+        /// <summary>
+        /// Stable and unique string identifying the role.
+        /// </summary>
+        [Output("uniqueId")]
+        public Output<string> UniqueId { get; private set; } = null!;
+
+
+        /// <summary>
         /// Create a AssumableRole resource with the given unique name, arguments, and options.
         /// </summary>
         ///
@@ -44,6 +69,24 @@ namespace Pulumi.AwsIam
         /// </summary>
         [Input("assumeRolePolicy", required: true)]
         public Input<string> AssumeRolePolicy { get; set; } = null!;
+
+        /// <summary>
+        /// Whether to attach a predefined aws admin policy
+        /// </summary>
+        [Input("attachAdminPolicy")]
+        public Input<bool>? AttachAdminPolicy { get; set; }
+
+        /// <summary>
+        /// Whether to attach a predefined aws poweruser policy
+        /// </summary>
+        [Input("attachPowerUserPolicy")]
+        public Input<bool>? AttachPowerUserPolicy { get; set; }
+
+        /// <summary>
+        /// Whether to attach a predefined aws readonly policy
+        /// </summary>
+        [Input("attachReadOnlyPolicy")]
+        public Input<bool>? AttachReadOnlyPolicy { get; set; }
 
         public AssumableRoleArgs()
         {
