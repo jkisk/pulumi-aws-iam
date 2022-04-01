@@ -16,3 +16,4 @@ const testRole = new iam.AssumableRole("test-role", {
 });
 
 export const role = testRole.role;
+
