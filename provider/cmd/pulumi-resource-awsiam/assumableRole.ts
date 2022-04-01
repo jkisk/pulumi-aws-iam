@@ -10,7 +10,7 @@ export class AssumableRole extends pulumi.ComponentResource {
     args: AssumableRoleArgs,
     opts?: pulumi.ComponentResourceOptions
   ) {
-    super("awsIam:index:assumableRole", name, opts);
+    super("awsIam:index:AssumableRole", name, opts);
 
     this.role = new aws.iam.Role(name, args, opts);
     this.policies = [];
@@ -21,7 +21,7 @@ export class AssumableRole extends pulumi.ComponentResource {
         policyArn: "arn:aws:iam::aws:policy/AdministratorAccess",
       };
       this.policies.push(
-        new aws.iam.RolePolicyAttachment(`${name}-admin`, attArgs)
+        new aws.iam.RolePolicyAttachment(`${name}-admin`, attArgs, { parent: this })
       );
     }
     if (args.attachPowerUserPolicy) {
@@ -30,7 +30,7 @@ export class AssumableRole extends pulumi.ComponentResource {
         policyArn: "arn:aws:iam::aws:policy/PowerUserAccess",
       };
       this.policies.push(
-        new aws.iam.RolePolicyAttachment(`${name}-power`, attArgs)
+        new aws.iam.RolePolicyAttachment(`${name}-power`, attArgs, { parent: this })
       );
     }
 
@@ -40,7 +40,7 @@ export class AssumableRole extends pulumi.ComponentResource {
         policyArn: "arn:aws:iam::aws:policy/ReadOnlyAccess",
       };
       this.policies.push(
-        new aws.iam.RolePolicyAttachment(`${name}-read`, attArgs)
+        new aws.iam.RolePolicyAttachment(`${name}-read`, attArgs, { parent: this })
       );
     }
   }

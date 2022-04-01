@@ -39,16 +39,16 @@ async function constructAssumableRole(name: string, inputs: pulumi.Inputs,
     options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
 
     // Create the component resource.
-    const role = new AssumableRole(name, inputs as AssumableRoleArgs, options);
+    const component = new AssumableRole(name, inputs as AssumableRoleArgs, options);
 
     // Return the component resource's URN and outputs as its state.
     return {
-        urn: role.urn,
+        urn: component.urn,
         state: {
-            role: role.role,
-            policiesAttached: role.policies,
-            createDate: role.role.createDate,
-            uniqueId: role.role.uniqueId,
+            role: component,
+            policiesAttached: component.policies,
+            createDate: component.role.createDate,
+            uniqueId: component.role.uniqueId,
         },
     };
 }

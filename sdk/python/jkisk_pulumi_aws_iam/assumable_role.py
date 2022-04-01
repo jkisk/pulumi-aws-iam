@@ -7,6 +7,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+import pulumi_aws
 
 __all__ = ['AssumableRoleArgs', 'AssumableRole']
 
@@ -148,8 +149,10 @@ class AssumableRole(pulumi.ComponentResource):
             __props__.__dict__["attach_power_user_policy"] = attach_power_user_policy
             __props__.__dict__["attach_read_only_policy"] = attach_read_only_policy
             __props__.__dict__["arn"] = None
+            __props__.__dict__["attached_policies"] = None
             __props__.__dict__["create_date"] = None
             __props__.__dict__["id"] = None
+            __props__.__dict__["role"] = None
             __props__.__dict__["unique_id"] = None
         super(AssumableRole, __self__).__init__(
             'awsIam:index:AssumableRole',
@@ -162,9 +165,14 @@ class AssumableRole(pulumi.ComponentResource):
     @pulumi.getter
     def arn(self) -> pulumi.Output[str]:
         """
-        Amazon Resource Name (ARN) specifying the role.
+        ARN of the IAM role.
         """
         return pulumi.get(self, "arn")
+
+    @property
+    @pulumi.getter(name="attachedPolicies")
+    def attached_policies(self) -> pulumi.Output[Sequence['pulumi_aws.iam.RolePolicyAttachment']]:
+        return pulumi.get(self, "attached_policies")
 
     @property
     @pulumi.getter(name="createDate")
@@ -181,6 +189,14 @@ class AssumableRole(pulumi.ComponentResource):
         The provider-assigned unique ID for this managed resource..
         """
         return pulumi.get(self, "id")
+
+    @property
+    @pulumi.getter
+    def role(self) -> pulumi.Output[Optional['pulumi_aws.iam.Role']]:
+        """
+        The IAM role
+        """
+        return pulumi.get(self, "role")
 
     @property
     @pulumi.getter(name="uniqueId")

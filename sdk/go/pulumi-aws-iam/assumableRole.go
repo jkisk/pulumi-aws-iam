@@ -8,18 +8,22 @@ import (
 	"reflect"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-aws/sdk/v5/go/aws/iam"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 type AssumableRole struct {
 	pulumi.ResourceState
 
-	// Amazon Resource Name (ARN) specifying the role.
-	Arn pulumi.StringOutput `pulumi:"arn"`
+	// ARN of the IAM role.
+	Arn              pulumi.StringOutput                 `pulumi:"arn"`
+	AttachedPolicies iam.RolePolicyAttachmentArrayOutput `pulumi:"attachedPolicies"`
 	// Creation date of the IAM role.
 	CreateDate pulumi.StringOutput `pulumi:"createDate"`
 	// The provider-assigned unique ID for this managed resource..
 	Id pulumi.StringOutput `pulumi:"id"`
+	// The IAM role
+	Role iam.RoleOutput `pulumi:"role"`
 	// Stable and unique string identifying the role.
 	UniqueId pulumi.StringOutput `pulumi:"uniqueId"`
 }

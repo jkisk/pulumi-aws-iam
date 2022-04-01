@@ -15,5 +15,5 @@ const testRole = new iam.AssumableRole("test-role", {
     attachReadOnlyPolicy: true
 });
 
-export const arn = testRole.arn;
-export const policies = testRole.policiesAttached;
+export const role = testRole.role;
+
