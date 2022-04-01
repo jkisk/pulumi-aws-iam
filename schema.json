@@ -60,6 +60,41 @@
                 "attachedPolicies"
             ]
         },
+        "awsIam:index:IamRoleForServiceAccount": {
+            "isComponent": true,
+            "inputProperties": {
+                "rolePath": {
+                    "type": "string",
+                    "description": "The IAM path where the role exists."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "The EKS namespace that will use the role for IAM authentication."
+                },
+                "serviceAccount": {
+                    "type": "string",
+                    "description": "The EKS service account that will use the role for IAM authentication."
+                },
+                "providerArn": {
+                    "type": "string",
+                    "description": "The OIDC provider ARN."
+                }
+            },
+            "requiredInputs": [
+                "namespace",
+                "serviceAccount",
+                "providerArn"
+            ],
+            "properties": {
+                "role": {
+                    "$ref": "/aws/v5.1.0/schema.json#/resources/aws:iam%2Frole:Role",
+                    "description": "The IAM role created"
+                }
+            },
+            "required": [
+                "role"
+            ]
+        },
         "awsIam:index:User": {
             "isComponent": true,
             "inputProperties": {

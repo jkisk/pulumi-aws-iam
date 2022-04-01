@@ -17,6 +17,7 @@ import * as provider from "@pulumi/pulumi/provider";
 
 import { AssumableRoleArgs, AssumableRole } from "./assumableRole";
 import { User, UserArgs} from "./user";
+import { IamRoleForServiceAccount, IamRoleForServiceAccountArgs } from "./iamRoleForServiceAccounts";
 
 export class Provider implements provider.Provider {
     constructor(readonly version: string, readonly schema: string) { }
@@ -27,8 +28,9 @@ export class Provider implements provider.Provider {
             case "awsIam:index:User":
                 return await constructUser(name, inputs, options);
             case "awsIam:index:AssumableRole":
-
                 return await constructAssumableRole(name, inputs, options);
+            case "awsIam:index:IamRoleForServiceAccount":
+                return await constructIamRoleForServiceAccounts(name, inputs, options);
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -49,6 +51,21 @@ async function constructAssumableRole(name: string, inputs: pulumi.Inputs,
             policiesAttached: component.policies,
             createDate: component.role.createDate,
             uniqueId: component.role.uniqueId,
+        },
+    };
+}
+
+async function constructIamRoleForServiceAccounts(name: string, inputs: pulumi.Inputs,
+    options: pulumi.ComponentResourceOptions): Promise<provider.ConstructResult> {
+
+    // Create the component resource.
+    const irsa = new IamRoleForServiceAccount(name, inputs as IamRoleForServiceAccountArgs, options);
+
+    // Return the component resource's URN and outputs as its state.
+    return {
+        urn: irsa.urn,
+        state: {
+            role: irsa.role
         },
     };
 }

@@ -22,6 +22,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "awsIam:index:AssumableRole":
 		r = &AssumableRole{}
+	case "awsIam:index:IamRoleForServiceAccount":
+		r = &IamRoleForServiceAccount{}
 	case "awsIam:index:User":
 		r = &User{}
 	default:
